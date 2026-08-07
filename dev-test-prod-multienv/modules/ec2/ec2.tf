@@ -89,7 +89,7 @@ resource "aws_instance" "my_ec2_instance" {
     }
 
     tags = {
-        Environment = "${var.ec2_environment}-${var.ec2_instance_name}" #variable define in variable.tf file
+        Environment = "${var.ec2_environment}-${var.ec2_instance_name}-${count.index + 1}" #variable define in variable.tf file
     }
 
 }   
