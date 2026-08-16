@@ -8,7 +8,7 @@
 
 data "aws_ami" "my_ec2_ami"{
     most_recent =true
-    owners=[099720109477]
+    owners=["099720109477"]
     filter {
         name = "name"
         values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
@@ -64,18 +64,18 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
-
+/*
 data "aws_ec2_instance_type" "my_ec2_instance_type"{
     instance_type = var.ec2_instance_type     #variable define in variable.tf file
 }
-
+*/
 # Creating an EC2 instance using the AMI and security group created above (writing instance to the VPC and subnet created above)
 
 resource "aws_instance" "my_ec2_instance" {
     count = var.ec2_instance_count 
     ami = data.aws_ami.my_ec2_ami.id
-    instance_type = data.aws_ec2_instance_type.my_ec2_instance_type.instance_type
-    # or instance_type = var.ec2_instance_type 
+   # instance_type = data.aws_ec2_instance_type.my_ec2_instance_type.instance_type
+    instance_type = var.ec2_instance_type 
 
     key_name = aws_key_pair.my_ec2_keypair.key_name 
     vpc_security_group_ids = [aws_security_group.ec2_security_sg.id]

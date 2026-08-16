@@ -19,7 +19,7 @@ variable "ec2_instance_state"{
 variable "ec2_instance_type"{
     description = "Mention the type of ec2 instance"
     type = string 
-    default = "t2.micro"
+  #  default = "t2.micro"
 
 }
 

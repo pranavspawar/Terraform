@@ -4,17 +4,20 @@ locals {
             instance_count = 1 
             instance_s3_count = 1
             dynamodb_table_count = 1
+            ec2_instance_type = "t2.micro"
 
         }
         stg-test = {
             instance_count = 2
             instance_s3_count = 2 
             dynamodb_table_count = 1
+            ec2_instance_type = "t2.small"
         }
         prod = {
             instance_count = 3
             instance_s3_count = 2
             dynamodb_table_count = 2
+            ec2_instance_type = "t2.medium"
         }
     }
     current = lookup(local.env ,terraform.workspace, local.env.dev)
@@ -27,6 +30,7 @@ module "ec2_dev_infra" {
                                           # if workspace is prod then ec2_environment will be prod
 
     ec2_instance_count = local.current.instance_count  
+    ec2_instance_type = local.current.ec2_instance_type
 
 }
 module "ec2_s3_infra" {
